@@ -1,0 +1,1867 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fahran Business Investment System</title>
+    <style>
+        /* ==========================================================================
+           CSS Custom Properties - Design System
+           ========================================================================== */
+        :root {
+            /* Primary Colors */
+            --color-primary: #2563eb;
+            --color-primary-dark: #1d4ed8;
+            --color-primary-light: #dbeafe;
+            --color-primary-50: #eff6ff;
+            
+            /* Secondary Colors */
+            --color-success: #10b981;
+            --color-success-bg: #d1fae5;
+            --color-warning: #f59e0b;
+            --color-warning-bg: #fef3c7;
+            --color-danger: #ef4444;
+            --color-danger-bg: #fee2e2;
+            --color-info: #6b7280;
+            --color-info-bg: #f3f4f6;
+            
+            /* Neutral Colors */
+            --color-white: #ffffff;
+            --color-gray-50: #f9fafb;
+            --color-gray-100: #f3f4f6;
+            --color-gray-200: #e5e7eb;
+            --color-gray-300: #d1d5db;
+            --color-gray-400: #9ca3af;
+            --color-gray-500: #6b7280;
+            --color-gray-600: #4b5563;
+            --color-gray-700: #374151;
+            --color-gray-800: #1f2937;
+            --color-gray-900: #111827;
+            
+            /* Typography */
+            --font-family-base: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            --font-size-xs: 0.75rem;
+            --font-size-sm: 0.875rem;
+            --font-size-base: 1rem;
+            --font-size-lg: 1.125rem;
+            --font-size-xl: 1.25rem;
+            --font-size-2xl: 1.5rem;
+            --font-size-3xl: 1.875rem;
+            --font-size-4xl: 2.25rem;
+            
+            /* Spacing */
+            --space-xs: 0.5rem;
+            --space-sm: 0.75rem;
+            --space-md: 1rem;
+            --space-lg: 1.5rem;
+            --space-xl: 2rem;
+            --space-2xl: 2.5rem;
+            --space-3xl: 3rem;
+            
+            /* Shadows */
+            --shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            
+            /* Borders */
+            --border-radius: 0.5rem;
+            --border-radius-lg: 0.75rem;
+            --border-radius-xl: 1rem;
+            
+            /* Transitions */
+            --transition-fast: 150ms ease-in-out;
+            --transition-base: 250ms ease-in-out;
+        }
+        
+        /* ==========================================================================
+           Reset & Base Styles
+           ========================================================================== */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        html {
+            font-size: 16px;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        
+        body {
+            font-family: var(--font-family-base);
+            background: linear-gradient(135deg, var(--color-primary) 0%, #1e40af 100%);
+            min-height: 100vh;
+            color: var(--color-gray-800);
+            line-height: 1.6;
+            padding: 0;
+            margin: 0;
+        }
+        
+        /* ==========================================================================
+           Layout Components
+           ========================================================================== */
+        .container {
+            max-width: 1440px;
+            margin: 0 auto;
+            background: var(--color-white);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+            color: var(--color-white);
+            padding: var(--space-2xl) var(--space-xl);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at top right, rgba(255,255,255,0.1) 0%, transparent 40%);
+            pointer-events: none;
+        }
+        
+        .header h1 {
+            font-size: var(--font-size-3xl);
+            font-weight: 700;
+            margin-bottom: var(--space-xs);
+            position: relative;
+            z-index: 1;
+        }
+        
+        .header p {
+            font-size: var(--font-size-lg);
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .nav {
+            background: var(--color-white);
+            padding: var(--space-md) var(--space-xl);
+            border-bottom: 1px solid var(--color-gray-200);
+            display: flex;
+            gap: var(--space-xs);
+            flex-wrap: wrap;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .user-info-bar {
+            background: var(--color-primary-50);
+            padding: var(--space-md) var(--space-xl);
+            border-bottom: 1px solid var(--color-gray-200);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: var(--space-md);
+        }
+        
+        .content {
+            padding: var(--space-xl);
+            flex: 1;
+        }
+        
+        @media (max-width: 768px) {
+            .content {
+                padding: var(--space-md);
+            }
+            .header {
+                padding: var(--space-xl) var(--space-md);
+            }
+            .nav {
+                padding: var(--space-md);
+            }
+            .user-info-bar {
+                padding: var(--space-md);
+            }
+        }
+        
+        /* ==========================================================================
+           Navigation Buttons
+           ========================================================================== */
+        .nav-btn {
+            padding: var(--space-sm) var(--space-lg);
+            border: 1px solid var(--color-gray-200);
+            background: var(--color-white);
+            color: var(--color-gray-700);
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-size: var(--font-size-sm);
+            font-weight: 500;
+            transition: all var(--transition-fast);
+            white-space: nowrap;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .nav-btn:hover {
+            border-color: var(--color-primary-light);
+            color: var(--color-primary);
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .nav-btn.active {
+            background: var(--color-primary);
+            color: var(--color-white);
+            border-color: var(--color-primary);
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .nav-btn.active:hover {
+            background: var(--color-primary-dark);
+        }
+        
+        /* ==========================================================================
+           Cards
+           ========================================================================== */
+        .card {
+            background: var(--color-white);
+            border: 1px solid var(--color-gray-200);
+            border-radius: var(--border-radius-lg);
+            padding: var(--space-xl);
+            margin-bottom: var(--space-lg);
+            box-shadow: var(--shadow-sm);
+            transition: all var(--transition-base);
+        }
+        
+        .card:hover {
+            box-shadow: var(--shadow-md);
+            border-color: var(--color-gray-300);
+        }
+        
+        .card h3 {
+            color: var(--color-gray-800);
+            margin-bottom: var(--space-md);
+            font-size: var(--font-size-xl);
+            font-weight: 600;
+        }
+        
+        /* ==========================================================================
+           Statistics Cards
+           ========================================================================== */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: var(--space-lg);
+            margin-bottom: var(--space-2xl);
+        }
+        
+        @media (max-width: 640px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .stat-card {
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+            color: var(--color-white);
+            padding: var(--space-xl);
+            border-radius: var(--border-radius-lg);
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            transition: transform var(--transition-base);
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-4px);
+        }
+        
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at top right, rgba(255,255,255,0.15) 0%, transparent 40%);
+        }
+        
+        .stat-card h4 {
+            font-size: var(--font-size-sm);
+            font-weight: 500;
+            opacity: 0.9;
+            margin-bottom: var(--space-sm);
+            position: relative;
+        }
+        
+        .stat-card .value {
+            font-size: var(--font-size-3xl);
+            font-weight: 700;
+            position: relative;
+        }
+        
+        .stat-card p {
+            margin-top: var(--space-sm);
+            font-size: var(--font-size-sm);
+            opacity: 0.9;
+            position: relative;
+        }
+        
+        /* ==========================================================================
+           Buttons
+           ========================================================================== */
+        .btn {
+            padding: var(--space-sm) var(--space-lg);
+            border: none;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-size: var(--font-size-sm);
+            font-weight: 500;
+            transition: all var(--transition-fast);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-xs);
+            text-decoration: none;
+            line-height: 1.5;
+        }
+        
+        .btn:focus {
+            outline: 2px solid var(--color-primary-light);
+            outline-offset: 2px;
+        }
+        
+        .btn-primary {
+            background: var(--color-primary);
+            color: var(--color-white);
+        }
+        
+        .btn-primary:hover {
+            background: var(--color-primary-dark);
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .btn-success {
+            background: var(--color-success);
+            color: var(--color-white);
+        }
+        
+        .btn-success:hover {
+            background: #059669;
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .btn-danger {
+            background: var(--color-danger);
+            color: var(--color-white);
+        }
+        
+        .btn-danger:hover {
+            background: #dc2626;
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .btn-secondary {
+            background: var(--color-white);
+            color: var(--color-gray-700);
+            border: 1px solid var(--color-gray-300);
+        }
+        
+        .btn-secondary:hover {
+            background: var(--color-gray-50);
+            border-color: var(--color-gray-400);
+            transform: translateY(-1px);
+        }
+        
+        .btn-sm {
+            padding: var(--space-xs) var(--space-md);
+            font-size: var(--font-size-xs);
+        }
+        
+        .btn-block {
+            width: 100%;
+        }
+        
+        /* ==========================================================================
+           Forms
+           ========================================================================== */
+        .form-group {
+            margin-bottom: var(--space-lg);
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: var(--space-xs);
+            font-weight: 500;
+            color: var(--color-gray-700);
+            font-size: var(--font-size-sm);
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: var(--space-sm) var(--space-md);
+            border: 1px solid var(--color-gray-300);
+            border-radius: var(--border-radius);
+            font-size: var(--font-size-sm);
+            transition: all var(--transition-fast);
+            background: var(--color-white);
+            color: var(--color-gray-800);
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: var(--color-primary);
+            box-shadow: 0 0 0 3px var(--color-primary-light);
+        }
+        
+        .form-control:disabled {
+            background: var(--color-gray-100);
+            cursor: not-allowed;
+        }
+        
+        textarea.form-control {
+            resize: vertical;
+            min-height: 100px;
+        }
+        
+        select.form-control {
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+            background-position: right var(--space-sm) center;
+            background-repeat: no-repeat;
+            background-size: 1.5em 1.5em;
+            padding-right: var(--space-xl);
+        }
+        
+        /* ==========================================================================
+           Login Form
+           ========================================================================== */
+        .login-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: var(--space-md);
+        }
+        
+        .login-card {
+            background: var(--color-white);
+            border-radius: var(--border-radius-xl);
+            box-shadow: var(--shadow-xl);
+            padding: var(--space-3xl);
+            width: 100%;
+            max-width: 420px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .login-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--color-primary), var(--color-primary-dark));
+        }
+        
+        .login-card h2 {
+            color: var(--color-gray-800);
+            margin-bottom: var(--space-sm);
+            text-align: center;
+            font-size: var(--font-size-2xl);
+        }
+        
+        .login-subtitle {
+            color: var(--color-gray-500);
+            text-align: center;
+            margin-bottom: var(--space-2xl);
+            font-size: var(--font-size-sm);
+        }
+        
+        /* ==========================================================================
+           Tables
+           ========================================================================== */
+        .table-wrapper {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            border: 1px solid var(--color-gray-200);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-xs);
+        }
+        
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--color-white);
+            min-width: 600px;
+        }
+        
+        .table th {
+            background: var(--color-gray-50);
+            padding: var(--space-md);
+            text-align: left;
+            font-weight: 600;
+            color: var(--color-gray-700);
+            font-size: var(--font-size-sm);
+            border-bottom: 1px solid var(--color-gray-200);
+            position: sticky;
+            top: 0;
+        }
+        
+        .table td {
+            padding: var(--space-md);
+            border-bottom: 1px solid var(--color-gray-100);
+            color: var(--color-gray-700);
+            font-size: var(--font-size-sm);
+        }
+        
+        .table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .table tr:hover {
+            background: var(--color-gray-50);
+        }
+        
+        /* ==========================================================================
+           Badges
+           ========================================================================== */
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            padding: var(--space-xs) var(--space-sm);
+            border-radius: 9999px;
+            font-size: var(--font-size-xs);
+            font-weight: 500;
+            line-height: 1;
+        }
+        
+        .badge-success {
+            background: var(--color-success-bg);
+            color: #065f46;
+        }
+        
+        .badge-danger {
+            background: var(--color-danger-bg);
+            color: #991b1b;
+        }
+        
+        .badge-warning {
+            background: var(--color-warning-bg);
+            color: #92400e;
+        }
+        
+        .badge-info {
+            background: var(--color-info-bg);
+            color: var(--color-gray-700);
+        }
+        
+        /* ==========================================================================
+           Alerts
+           ========================================================================== */
+        .alert {
+            padding: var(--space-md);
+            border-radius: var(--border-radius);
+            margin-bottom: var(--space-lg);
+            border: 1px solid;
+            font-size: var(--font-size-sm);
+        }
+        
+        .alert-success {
+            background: var(--color-success-bg);
+            color: #065f46;
+            border-color: #a7f3d0;
+        }
+        
+        .alert-error {
+            background: var(--color-danger-bg);
+            color: #991b1b;
+            border-color: #fecaca;
+        }
+        
+        .alert-info {
+            background: var(--color-info-bg);
+            color: var(--color-gray-700);
+            border-color: var(--color-gray-300);
+        }
+        
+        /* ==========================================================================
+           Modals
+           ========================================================================== */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(4px);
+            overflow-y: auto;
+            animation: fadeIn var(--transition-base);
+            padding: var(--space-md);
+        }
+        
+        .modal-content {
+            background: var(--color-white);
+            margin: var(--space-lg) auto;
+            padding: var(--space-2xl);
+            border-radius: var(--border-radius-xl);
+            max-width: 640px;
+            width: 100%;
+            box-shadow: var(--shadow-xl);
+            position: relative;
+            animation: slideUp var(--transition-base);
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes slideUp {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-xl);
+        }
+        
+        .modal-header h2 {
+            color: var(--color-gray-800);
+            font-size: var(--font-size-2xl);
+        }
+        
+        .close {
+            color: var(--color-gray-400);
+            font-size: var(--font-size-3xl);
+            font-weight: 300;
+            cursor: pointer;
+            line-height: 1;
+            transition: color var(--transition-fast);
+            background: none;
+            border: none;
+        }
+        
+        .close:hover {
+            color: var(--color-gray-600);
+        }
+        
+        /* ==========================================================================
+           Utility Classes
+           ========================================================================== */
+        .hidden {
+            display: none !important;
+        }
+        
+        .text-center {
+            text-align: center;
+        }
+        
+        .mb-0 {
+            margin-bottom: 0;
+        }
+        
+        .mb-1 {
+            margin-bottom: var(--space-xs);
+        }
+        
+        .mb-2 {
+            margin-bottom: var(--space-md);
+        }
+        
+        .mb-3 {
+            margin-bottom: var(--space-lg);
+        }
+        
+        .mb-4 {
+            margin-bottom: var(--space-xl);
+        }
+        
+        .mt-2 {
+            margin-top: var(--space-md);
+        }
+        
+        .d-flex {
+            display: flex;
+        }
+        
+        .justify-content-between {
+            justify-content: space-between;
+        }
+        
+        .align-items-center {
+            align-items: center;
+        }
+        
+        .gap-1 {
+            gap: var(--space-xs);
+        }
+        
+        .gap-2 {
+            gap: var(--space-md);
+        }
+        
+        .w-100 {
+            width: 100%;
+        }
+        
+        /* ==========================================================================
+           Section Headers
+           ========================================================================== */
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-lg);
+            flex-wrap: wrap;
+            gap: var(--space-md);
+        }
+        
+        .section-title {
+            color: var(--color-gray-800);
+            font-size: var(--font-size-2xl);
+            font-weight: 700;
+        }
+        
+        /* ==========================================================================
+           Responsive
+           ========================================================================== */
+        @media (min-width: 768px) {
+            .d-md-flex {
+                display: flex;
+            }
+        }
+        
+        @media (max-width: 767px) {
+            .table-wrapper {
+                border: none;
+                box-shadow: none;
+            }
+            
+            .card {
+                padding: var(--space-lg);
+            }
+            
+            .modal-content {
+                padding: var(--space-lg);
+            }
+            
+            .section-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Login Section -->
+    <div id="loginSection" class="login-container">
+        <div class="login-card">
+            <h2>Member Login</h2>
+            <p class="login-subtitle">Access your investment dashboard</p>
+            <div id="loginAlert"></div>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="loginEmail">Email Address</label>
+                    <input type="email" id="loginEmail" class="form-control" required placeholder="you@example.com">
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Password</label>
+                    <input type="password" id="loginPassword" class="form-control" required placeholder="••••••••">
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">Login to Dashboard</button>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Main Dashboard -->
+    <div id="dashboardSection" class="container hidden">
+        <div class="header">
+            <h1>🏢 Fahran Business Investment System</h1>
+            <p>Share-based Investment Platform</p>
+        </div>
+        
+        <nav class="nav" id="mainNav">
+            <!-- Populated by JavaScript -->
+        </nav>
+        
+        <div class="user-info-bar">
+            <div class="d-flex align-items-center gap-1">
+                <strong id="userName">Welcome</strong>
+                <span id="userRole" class="badge"></span>
+            </div>
+            <button onclick="logout()" class="btn btn-secondary btn-sm">Logout</button>
+        </div>
+        
+        <main class="content">
+            <!-- Dashboard -->
+            <section id="dashboard" class="section">
+                <div class="section-header">
+                    <h2 class="section-title">Dashboard Overview</h2>
+                </div>
+                <div class="stats-grid" id="dashboardStats"></div>
+                <div class="card">
+                    <h3>Recent Business Plans</h3>
+                    <div id="recentPlans"></div>
+                </div>
+            </section>
+            
+            <!-- Members -->
+            <section id="members" class="section hidden">
+                <div class="section-header">
+                    <h2 class="section-title">Members Management</h2>
+                    <button onclick="showModal('addMemberModal')" class="btn btn-primary">
+                        <span>+</span> Add Member
+                    </button>
+                </div>
+                <div id="membersList"></div>
+            </section>
+            
+            <!-- Shares -->
+            <section id="shares" class="section hidden">
+                <div class="section-header">
+                    <h2 class="section-title">Shares Management</h2>
+                    <button onclick="showModal('addShareModal')" class="btn btn-primary">
+                        <span>+</span> Add Shares
+                    </button>
+                </div>
+                <div id="sharesList"></div>
+            </section>
+            
+            <!-- Business Plans -->
+            <section id="businessPlans" class="section hidden">
+                <div class="section-header">
+                    <h2 class="section-title">Business Plans</h2>
+                    <button onclick="showModal('addPlanModal')" class="btn btn-primary">
+                        <span>+</span> Create Plan
+                    </button>
+                </div>
+                <div id="businessPlansList"></div>
+            </section>
+            
+            <!-- Payments -->
+            <section id="payments" class="section hidden">
+                <h2 class="section-title mb-3">Monthly Payments</h2>
+                <div id="paymentsList"></div>
+            </section>
+            
+            <!-- My Shares (User View) -->
+            <section id="myShares" class="section hidden">
+                <h2 class="section-title mb-3">My Shares</h2>
+                <div id="mySharesContent"></div>
+            </section>
+            
+            <!-- My Statement (User View) -->
+            <section id="myStatement" class="section hidden">
+                <h2 class="section-title mb-3">My Statement</h2>
+                <div id="myStatementContent"></div>
+            </section>
+            
+            <!-- Reports (Admin Only) -->
+            <section id="reports" class="section hidden">
+                <h2 class="section-title mb-3">Member Statements</h2>
+                <div class="card">
+                    <div class="form-group">
+                        <label for="reportMemberSelect">Select Member</label>
+                        <select id="reportMemberSelect" class="form-control" onchange="loadMemberStatement()">
+                            <option value="">Choose a member...</option>
+                        </select>
+                    </div>
+                </div>
+                <div id="memberStatement"></div>
+            </section>
+        </main>
+    </div>
+    
+    <!-- Modals -->
+    <div id="addMemberModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Add New Member</h2>
+                <button class="close" onclick="closeModal('addMemberModal')">&times;</button>
+            </div>
+            <form id="addMemberForm">
+                <div class="form-group">
+                    <label for="memberName">Full Name</label>
+                    <input type="text" id="memberName" class="form-control" required placeholder="John Doe">
+                </div>
+                <div class="form-group">
+                    <label for="memberEmail">Email Address</label>
+                    <input type="email" id="memberEmail" class="form-control" required placeholder="john@example.com">
+                </div>
+                <div class="form-group">
+                    <label for="memberPhone">Phone Number</label>
+                    <input type="tel" id="memberPhone" class="form-control" placeholder="+91 98765 43210">
+                </div>
+                <div class="form-group">
+                    <label for="memberLocation">Location</label>
+                    <select id="memberLocation" class="form-control" required>
+                        <option value="">Select location...</option>
+                        <option value="gav">Gav</option>
+                        <option value="mumbai">Mumbai</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="memberPassword">Password</label>
+                    <input type="password" id="memberPassword" class="form-control" required placeholder="Create a strong password">
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">Register Member</button>
+            </form>
+        </div>
+    </div>
+    
+    <div id="addShareModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Add Shares to Member</h2>
+                <button class="close" onclick="closeModal('addShareModal')">&times;</button>
+            </div>
+            <form id="addShareForm">
+                <div class="form-group">
+                    <label for="shareMemberSelect">Select Member</label>
+                    <select id="shareMemberSelect" class="form-control" required>
+                        <option value="">Choose a member...</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="shareTypeSelect">Share Type</label>
+                    <select id="shareTypeSelect" class="form-control" required onchange="updateShareInfo()">
+                        <option value="">Select type...</option>
+                        <option value="base">Base Shares (Monthly Payment - ₹100/share)</option>
+                        <option value="additional">Additional Shares (One-time - ₹100/share)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="shareQuantity">Number of Shares</label>
+                    <input type="number" id="shareQuantity" class="form-control" min="1" step="1" required placeholder="10" oninput="updateShareInfo()">
+                    <small id="shareInfo" class="mt-2" style="display: block; color: var(--color-gray-500);"></small>
+                </div>
+                <div class="form-group">
+                    <label for="shareTotalAmount">Total Amount</label>
+                    <input type="text" id="shareTotalAmount" class="form-control" readonly style="font-weight: 600; font-size: var(--font-size-lg);">
+                </div>
+                <div id="shareNote" class="alert alert-info hidden mb-3">
+                    <strong>Note:</strong> <span id="shareNoteText"></span>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">Add Shares</button>
+            </form>
+        </div>
+    </div>
+    
+    <div id="addPlanModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Create Business Plan</h2>
+                <button class="close" onclick="closeModal('addPlanModal')">&times;</button>
+            </div>
+            <form id="addPlanForm">
+                <div class="form-group">
+                    <label for="planTitle">Plan Title</label>
+                    <input type="text" id="planTitle" class="form-control" required placeholder="Enter plan title...">
+                </div>
+                <div class="form-group">
+                    <label for="planDescription">Description</label>
+                    <textarea id="planDescription" class="form-control" required placeholder="Describe the business plan..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="planAmount">Required Amount (₹)</label>
+                    <input type="number" id="planAmount" class="form-control" step="0.01" required placeholder="100000">
+                </div>
+                <div class="form-group">
+                    <label for="planRecurring">Investment Type</label>
+                    <select id="planRecurring" class="form-control" required>
+                        <option value="false">One-time Investment (Base + Additional shares)</option>
+                        <option value="true">Recurring Investment (Base shares only)</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">Create Plan</button>
+            </form>
+        </div>
+    </div>
+    
+    <script>
+        // Keep all your existing JavaScript - only CSS and HTML structure is improved
+        // No changes to business logic or API calls needed
+        
+        let authToken = localStorage.getItem('authToken');
+        let currentMember = null;
+        
+        // Check authentication on load
+        if (authToken) {
+            checkAuth();
+        }
+        
+        // Login handler
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+            
+            try {
+                const response = await fetch('/api/auth/login', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({email, password})
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    authToken = data.access_token;
+                    currentMember = data.member;
+                    localStorage.setItem('authToken', authToken);
+                    setupNavigation();
+                    showDashboard();
+                } else {
+                    showAlert('loginAlert', data.detail || 'Invalid credentials', 'error');
+                }
+            } catch (error) {
+                showAlert('loginAlert', 'Network error. Please try again.', 'error');
+            }
+        });
+        
+        async function checkAuth() {
+            try {
+                const response = await fetch('/api/my-profile', {
+                    headers: {'Authorization': `Bearer ${authToken}`}
+                });
+                
+                if (response.ok) {
+                    currentMember = await response.json();
+                    setupNavigation();
+                    showDashboard();
+                } else {
+                    localStorage.removeItem('authToken');
+                }
+            } catch (error) {
+                localStorage.removeItem('authToken');
+            }
+        }
+        
+        function setupNavigation() {
+            const nav = document.getElementById('mainNav');
+            const userName = document.getElementById('userName');
+            const userRole = document.getElementById('userRole');
+            
+            userName.textContent = `Welcome, ${currentMember.name}`;
+            
+            if (currentMember.is_top_member) {
+                userRole.textContent = 'Admin';
+                userRole.className = 'badge badge-success';
+                nav.innerHTML = `
+                    <button onclick="showSection('dashboard')" class="nav-btn active">Dashboard</button>
+                    <button onclick="showSection('members')" class="nav-btn">Members</button>
+                    <button onclick="showSection('shares')" class="nav-btn">Shares</button>
+                    <button onclick="showSection('businessPlans')" class="nav-btn">Business Plans</button>
+                    <button onclick="showSection('payments')" class="nav-btn">Payments</button>
+                    <button onclick="showSection('reports')" class="nav-btn">Reports</button>
+                `;
+            } else {
+                userRole.textContent = 'Member';
+                userRole.className = 'badge badge-info';
+                nav.innerHTML = `
+                    <button onclick="showSection('dashboard')" class="nav-btn active">Dashboard</button>
+                    <button onclick="showSection('myShares')" class="nav-btn">My Shares</button>
+                    <button onclick="showSection('businessPlans')" class="nav-btn">Business Plans</button>
+                    <button onclick="showSection('myStatement')" class="nav-btn">My Statement</button>
+                `;
+            }
+        }
+        
+        function showDashboard() {
+            document.getElementById('loginSection').classList.add('hidden');
+            document.getElementById('dashboardSection').classList.remove('hidden');
+            loadDashboard();
+        }
+        
+        function logout() {
+            localStorage.removeItem('authToken');
+            authToken = null;
+            currentMember = null;
+            document.getElementById('loginSection').classList.remove('hidden');
+            document.getElementById('dashboardSection').classList.add('hidden');
+        }
+        
+        function showSection(sectionName) {
+            document.querySelectorAll('.section').forEach(s => s.classList.add('hidden'));
+            document.getElementById(sectionName).classList.remove('hidden');
+            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            // Load section data
+            const loadSectionData = {
+                'dashboard': loadDashboard,
+                'members': () => currentMember.is_top_member ? loadMembers() : alert('Access denied. Admin only.'),
+                'shares': () => currentMember.is_top_member ? (loadShares(), loadMembersForShares()) : alert('Access denied. Admin only.'),
+                'myShares': loadMyShares,
+                'businessPlans': loadBusinessPlans,
+                'payments': () => currentMember.is_top_member ? loadPayments() : alert('Access denied. Admin only.'),
+                'myStatement': loadMyStatement,
+                'reports': () => currentMember.is_top_member ? loadReports() : alert('Access denied. Admin only.')
+            };
+            
+            if (loadSectionData[sectionName]) {
+                loadSectionData[sectionName]();
+            }
+        }
+        
+        async function loadDashboard() {
+            try {
+                if (currentMember.is_top_member) {
+                    const [plansRes, membersRes, sharesRes] = await Promise.all([
+                        fetch('/api/business-plans', {headers: {'Authorization': `Bearer ${authToken}`}}),
+                        fetch('/api/members', {headers: {'Authorization': `Bearer ${authToken}`}}),
+                        fetch('/api/shares', {headers: {'Authorization': `Bearer ${authToken}`}})
+                    ]);
+                    
+                    const plans = await plansRes.json();
+                    const members = await membersRes.json();
+                    const shares = await sharesRes.json();
+                    
+                    const totalShares = shares.reduce((sum, s) => sum + s.quantity, 0);
+                    const totalAmount = shares.reduce((sum, s) => sum + s.total_amount, 0);
+                    const activePlans = plans.filter(p => p.status === 'active').length;
+                    
+                    document.getElementById('dashboardStats').innerHTML = `
+                        <div class="stat-card">
+                            <h4>Total Members</h4>
+                            <div class="value">${members.length}</div>
+                        </div>
+                        <div class="stat-card">
+                            <h4>Total Shares</h4>
+                            <div class="value">${totalShares.toLocaleString()}</div>
+                        </div>
+                        <div class="stat-card">
+                            <h4>Total Investment</h4>
+                            <div class="value">₹${totalAmount.toLocaleString()}</div>
+                        </div>
+                        <div class="stat-card">
+                            <h4>Active Plans</h4>
+                            <div class="value">${activePlans}</div>
+                        </div>
+                    `;
+                    
+                    const recentPlansHtml = plans.slice(0, 5).map(plan => `
+                        <div style="padding: var(--space-lg); border-bottom: 1px: var(--color-gray-100);">
+                            <h4 style="font-size: var(--font-size-lg); margin-bottom: var(--space-xs);">${plan.title}</h4>
+                            <p style="color: var(--color-gray-600);">${plan.description.substring(0, 120)}...</p>
+                            <div style="margin-top: var(--space-sm); display: flex; gap: var(--space-md); flex-wrap: wrap;">
+                                <span style="color: var(--color-gray-700);"><strong>Amount:</strong> ₹${plan.required_amount.toLocaleString()}</span>
+                                <span style="color: var(--color-gray-700);"><strong>Status:</strong> <span class="badge badge-${getStatusColor(plan.status)}">${plan.status}</span></span>
+                            </div>
+                        </div>
+                    `).join('');
+                    
+                    document.getElementById('recentPlans').innerHTML = recentPlansHtml || '<p style="padding: var(--space-lg); text-align: center; color: var(--color-gray-500);">No business plans yet.</p>';
+                } else {
+                    const [plansRes, mySharesRes] = await Promise.all([
+                        fetch('/api/business-plans', {headers: {'Authorization': `Bearer ${authToken}`}}),
+                        fetch('/api/my-shares', {headers: {'Authorization': `Bearer ${authToken}`}})
+                    ]);
+                    
+                    const plans = await plansRes.json();
+                    const myShares = await mySharesRes.json();
+                    const activePlans = plans.filter(p => p.status === 'active').length;
+                    
+                    document.getElementById('dashboardStats').innerHTML = `
+                        <div class="stat-card">
+                            <h4>My Total Shares</h4>
+                            <div class="value">${myShares.total_shares.toLocaleString()}</div>
+                            <p>₹${myShares.total_amount.toLocaleString()}</p>
+                        </div>
+                        <div class="stat-card">
+                            <h4>Base Shares</h4>
+                            <div class="value">${myShares.base_shares.toLocaleString()}</div>
+                            <p>₹${myShares.base_amount.toLocaleString()}</p>
+                        </div>
+                        <div class="stat-card">
+                            <h4>Additional Shares</h4>
+                            <div class="value">${myShares.additional_shares.toLocaleString()}</div>
+                            <p>₹${myShares.additional_amount.toLocaleString()}</p>
+                        </div>
+                        <div class="stat-card">
+                            <h4>Active Plans</h4>
+                            <div class="value">${activePlans}</div>
+                        </div>
+                    `;
+                    
+                    const recentPlansHtml = plans.slice(0, 5).map(plan => `
+                        <div style="padding: var(--space-lg); border-bottom: 1px: var(--color-gray-100);">
+                            <h4 style="font-size: var(--font-size-lg); margin-bottom: var(--space-xs);">${plan.title}</h4>
+                            <p style="color: var(--color-gray-600);">${plan.description.substring(0, 120)}...</p>
+                            <div style="margin-top: var(--space-sm); display: flex; gap: var(--space-md); flex-wrap: wrap;">
+                                <span style="color: var(--color-gray-700);"><strong>Amount:</strong> ₹${plan.required_amount.toLocaleString()}</span>
+                                <span style="color: var(--color-gray-700);"><strong>Status:</strong> <span class="badge badge-${getStatusColor(plan.status)}">${plan.status}</span></span>
+                            </div>
+                        </div>
+                    `).join('');
+                    
+                    document.getElementById('recentPlans').innerHTML = recentPlansHtml || '<p style="padding: var(--space-lg); text-align: center; color: var(--color-gray-500);">No business plans yet.</p>';
+                }
+            } catch (error) {
+                console.error('Error loading dashboard:', error);
+                document.getElementById('dashboardStats').innerHTML = '<p style="color: var(--color-danger);">Error loading data.</p>';
+            }
+        }
+        
+        async function loadMembers() {
+            try {
+                const response = await fetch('/api/members', {
+                    headers: {'Authorization': `Bearer ${authToken}`}
+                });
+                const members = await response.json();
+                
+                const html = `
+                    <div class="table-wrapper">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th style="width: 5%;">ID</th>
+                                    <th style="width: 20%;">Name</th>
+                                    <th style="width: 25%;">Email</th>
+                                    <th style="width: 10%;">Location</th>
+                                    <th style="width: 10%;">Type</th>
+                                    <th style="width: 30%;">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${members.map(m => `
+                                    <tr>
+                                        <td>${m.id}</td>
+                                        <td><strong>${m.name}</strong></td>
+                                        <td>${m.email}</td>
+                                        <td><span class="badge badge-info">${m.location}</span></td>
+                                        <td><span class="badge badge-${m.is_top_member ? 'success' : 'info'}">${m.member_type}</span></td>
+                                        <td>
+                                            <div class="d-flex gap-1" style="flex-wrap: wrap;">
+                                                ${!m.is_top_member && m.member_type === 'new_member' ? 
+                                                    `<button onclick="approveMember(${m.id})" class="btn btn-success btn-sm">Approve</button>` : ''}
+                                                <button onclick="viewMemberShares(${m.id})" class="btn btn-secondary btn-sm">View Shares</button>
+                                                <button onclick="addMoreShares(${m.id}, '${m.name.replace(/'/g, "\\'")}')" class="btn btn-primary btn-sm">Add Shares</button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                `).join('')}
+                            </tbody>
+                        </table>
+                    </div>
+                `;
+                document.getElementById('membersList').innerHTML = html;
+            } catch (error) {
+                console.error('Error loading members:', error);
+                document.getElementById('membersList').innerHTML = '<p style="color: var(--color-danger);">Error loading members.</p>';
+            }
+        }
+        
+        async function loadShares() {
+            try {
+                const response = await fetch('/api/shares', {
+                    headers: {'Authorization': `Bearer ${authToken}`}
+                });
+                const shares = await response.json();
+                
+                // Group shares by member
+                const memberShares = {};
+                shares.forEach(s => {
+                    if (!memberShares[s.member_id]) {
+                        memberShares[s.member_id] = {
+                            member_name: s.member_name,
+                            base: 0,
+                            additional: 0,
+                            total_amount: 0
+                        };
+                    }
+                    if (s.share_type === 'base') {
+                        memberShares[s.member_id].base += s.quantity;
+                    } else {
+                        memberShares[s.member_id].additional += s.quantity;
+                    }
+                    memberShares[s.member_id].total_amount += s.total_amount;
+                });
+                
+                const summaryHtml = `
+                    <div class="card">
+                        <h3>Share Summary</h3>
+                        <div class="table-wrapper">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Member</th>
+                                        <th>Base Shares</th>
+                                        <th>Additional Shares</th>
+                                        <th>Total Shares</th>
+                                        <th>Total Amount</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    ${Object.entries(memberShares).map(([memberId, ms]) => `
+                                        <tr>
+                                            <td><strong>${ms.member_name}</strong></td>
+                                            <td><span class="badge badge-info">${ms.base.toLocaleString()}</span></td>
+                                            <td><span class="badge badge-warning">${ms.additional.toLocaleString()}</span></td>
+                                            <td><strong>${(ms.base + ms.additional).toLocaleString()}</strong></td>
+                                            <td><strong>₹${ms.total_amount.toLocaleString()}</strong></td>
+                                            <td>
+                                                <button onclick="addMoreShares(${memberId}, '${ms.member_name.replace(/'/g, "\\'")}')" 
+                                                        class="btn btn-primary btn-sm">Add More</button>
+                                            </td>
+                                        </tr>
+                                    `).join('')}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                `;
+                
+                const detailsHtml = `
+                    <div class="card" style="margin-top: var(--space-xl);">
+                        <h3>Detailed Share List</h3>
+                        <div class="table-wrapper">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Member</th>
+                                        <th>Share Type</th>
+                                        <th>Quantity</th>
+                                        <th>Amount per Share</th>
+                                        <th>Total Amount</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    ${shares.map(s => `
+                                        <tr>
+                                            <td>${s.member_name}</td>
+                                            <td><span class="badge badge-${s.share_type === 'base' ? 'info' : 'warning'}">${s.share_type}</span></td>
+                                            <td>${s.quantity.toLocaleString()}</td>
+                                            <td>₹${s.amount_per_share}</td>
+                                            <td>₹${s.total_amount.toLocaleString()}</td>
+                                        </tr>
+                                    `).join('')}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                `;
+                
+                document.getElementById('sharesList').innerHTML = summaryHtml + detailsHtml;
+            } catch (error) {
+                console.error('Error loading shares:', error);
+                document.getElementById('sharesList').innerHTML = '<p style="color: var(--color-danger);">Error loading shares.</p>';
+            }
+        }
+        
+        function addMoreShares(memberId, memberName) {
+            const select = document.getElementById('shareMemberSelect');
+            select.value = memberId;
+            showModal('addShareModal');
+        }
+        
+        function updateShareInfo() {
+            const quantity = parseInt(document.getElementById('shareQuantity').value) || 0;
+            const shareType = document.getElementById('shareTypeSelect').value;
+            const totalAmount = quantity * 100;
+            
+            document.getElementById('shareTotalAmount').value = `₹${totalAmount.toLocaleString()}`;
+            
+            const noteDiv = document.getElementById('shareNote');
+            const noteText = document.getElementById('shareNoteText');
+            
+            if (shareType === 'base') {
+                noteDiv.classList.remove('hidden');
+                noteText.textContent = `Base shares require monthly payment of ₹${totalAmount.toLocaleString()}. Once set, base shares can only be increased.`;
+            } else if (shareType === 'additional') {
+                noteDiv.classList.remove('hidden');
+                noteText.textContent = `Additional shares are one-time payment. Total amount: ₹${totalAmount.toLocaleString()}`;
+            } else {
+                noteDiv.classList.add('hidden');
+            }
+        }
+        
+        async function loadBusinessPlans() {
+            try {
+                const response = await fetch('/api/business-plans', {
+                    headers: {'Authorization': `Bearer ${authToken}`}
+                });
+                const plans = await response.json();
+                
+                const html = plans.map(plan => `
+                    <div class="card">
+                        <div class="d-flex justify-content-between align-items-start mb-2">
+                            <h3>${plan.title}</h3>
+                            <span class="badge badge-${getStatusColor(plan.status)}">${plan.status}</span>
+                        </div>
+                        <p style="color: var(--color-gray-600); margin-bottom: var(--space-md);">${plan.description}</p>
+                        <div class="d-flex gap-2" style="flex-wrap: wrap; margin-bottom: var(--space-md);">
+                            <span style="color: var(--color-gray-700);"><strong>Proposer:</strong> ${plan.proposer_name}</span>
+                            <span style="color: var(--color-gray-700);"><strong>Amount:</strong> ₹${plan.required_amount.toLocaleString()}</span>
+                            <span style="color: var(--color-gray-700);"><strong>Funded:</strong> ₹${plan.funded_amount.toLocaleString()}</span>
+                        </div>
+                        <div class="d-flex gap-2" style="flex-wrap: wrap; margin-bottom: var(--space-md);">
+                            <span style="color: var(--color-gray-700);"><strong>Votes:</strong> Yes: ${plan.yes_votes} | No: ${plan.no_votes}</span>
+                        </div>
+                        ${plan.status === 'pending_vote' ? `
+                            <div class="d-flex gap-1">
+                                <button onclick="voteOnPlan(${plan.id}, 'yes')" class="btn btn-success btn-sm">Vote Yes</button>
+                                <button onclick="voteOnPlan(${plan.id}, 'no')" class="btn btn-danger btn-sm">Vote No</button>
+                            </div>
+                        ` : ''}
+                        ${plan.status === 'active' && currentMember.is_top_member ? `
+                            <div class="d-flex gap-1">
+                                <button onclick="showProfitModal(${plan.id})" class="btn btn-primary btn-sm">Record Profit</button>
+                                <button onclick="showProofModal(${plan.id})" class="btn btn-secondary btn-sm">Add Proof</button>
+                            </div>
+                        ` : ''}
+                    </div>
+                `).join('');
+                
+                document.getElementById('businessPlansList').innerHTML = html || '<p style="text-align: center; color: var(--color-gray-500); padding: var(--space-lg);">No business plans yet.</p>';
+            } catch (error) {
+                console.error('Error loading business plans:', error);
+                document.getElementById('businessPlansList').innerHTML = '<p style="color: var(--color-danger);">Error loading plans.</p>';
+            }
+        }
+        
+        async function loadPayments() {
+            document.getElementById('paymentsList').innerHTML = '<p style="padding: var(--space-lg); text-align: center; color: var(--color-gray-500);">Payment tracking will be implemented here.</p>';
+        }
+        
+        async function loadReports() {
+            try {
+                const response = await fetch('/api/members', {
+                    headers: {'Authorization': `Bearer ${authToken}`}
+                });
+                const members = await response.json();
+                
+                const select = document.getElementById('reportMemberSelect');
+                select.innerHTML = '<option value="">Choose a member...</option>' + 
+                    members.map(m => `<option value="${m.id}">${m.name}</option>`).join('');
+            } catch (error) {
+                console.error('Error loading reports:', error);
+            }
+        }
+        
+        async function loadMemberStatement() {
+            const memberId = document.getElementById('reportMemberSelect').value;
+            if (!memberId) return;
+            
+            try {
+                const response = await fetch(`/api/members/${memberId}/statement`, {
+                    headers: {'Authorization': `Bearer ${authToken}`}
+                });
+                const statement = await response.json();
+                
+                const html = `
+                    <div class="card">
+                        <h3>Statement for ${statement.member.name}</h3>
+                        <div class="stats-grid mb-4">
+                            <div class="stat-card">
+                                <h4>Base Shares</h4>
+                                <div class="value">${statement.shares.base.toLocaleString()}</div>
+                            </div>
+                            <div class="stat-card">
+                                <h4>Additional Shares</h4>
+                                <div class="value">${statement.shares.additional.toLocaleString()}</div>
+                            </div>
+                            <div class="stat-card">
+                                <h4>Total Shares</h4>
+                                <div class="value">${statement.shares.total.toLocaleString()}</div>
+                            </div>
+                        </div>
+                        <h4 style="margin-bottom: var(--space-md);">Recent Transactions</h4>
+                        <div class="table-wrapper">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 15%;">Date</th>
+                                        <th style="width: 10%;">Type</th>
+                                        <th style="width: 15%;">Amount</th>
+                                        <th style="width: 60%;">Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    ${statement.transactions.length > 0 ? statement.transactions.map(t => `
+                                        <tr>
+                                            <td>${new Date(t.date).toLocaleDateString()}</td>
+                                            <td><span class="badge badge-${t.type === 'profit' ? 'success' : 'info'}">${t.type}</span></td>
+                                            <td>₹${t.amount}</td>
+                                            <td>${t.description}</td>
+                                        </tr>
+                                    `).join('') : '<tr><td colspan="4" style="text-align: center; color: var(--color-gray-500);">No transactions yet</td></tr>'}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                `;
+                document.getElementById('memberStatement').innerHTML = html;
+            } catch (error) {
+                console.error('Error loading statement:', error);
+            }
+        }
+        
+        // Form handlers
+        document.getElementById('addMemberForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const data = {
+                name: document.getElementById('memberName').value,
+                email: document.getElementById('memberEmail').value,
+                phone: document.getElementById('memberPhone').value,
+                location: document.getElementById('memberLocation').value,
+                password: document.getElementById('memberPassword').value
+            };
+            
+            try {
+                const response = await fetch('/api/auth/register', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify(data)
+                });
+                
+                if (response.ok) {
+                    closeModal('addMemberModal');
+                    loadMembers();
+                    showAlert('membersList', 'Member registered successfully!', 'success');
+                } else {
+                    const error = await response.json();
+                    alert(error.detail || 'Failed to register member');
+                }
+            } catch (error) {
+                alert('Network error. Please try again.');
+            }
+        });
+        
+        async function loadMembersForShares() {
+            try {
+                const response = await fetch('/api/members', {
+                    headers: {'Authorization': `Bearer ${authToken}`}
+                });
+                const members = await response.json();
+                const select = document.getElementById('shareMemberSelect');
+                select.innerHTML = '<option value="">Choose a member...</option>' + 
+                    members.map(m => `<option value="${m.id}">${m.name} (${m.email})</option>`).join('');
+            } catch (error) {
+                console.error('Error loading members:', error);
+            }
+        }
+        
+        document.getElementById('addShareForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const memberId = parseInt(document.getElementById('shareMemberSelect').value);
+            const shareType = document.getElementById('shareTypeSelect').value;
+            const quantity = parseInt(document.getElementById('shareQuantity').value);
+            
+            if (!memberId || !shareType || !quantity || quantity < 1) {
+                alert('Please fill all fields correctly');
+                return;
+            }
+            
+            const data = {
+                share_type: shareType,
+                quantity: quantity
+            };
+            
+            try {
+                const response = await fetch(`/api/members/${memberId}/shares`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${authToken}`
+                    },
+                    body: JSON.stringify(data)
+                });
+                
+                const result = await response.json();
+                
+                if (response.ok) {
+                    closeModal('addShareModal');
+                    loadShares();
+                    alert(`Successfully added ${quantity} ${shareType} share(s)!`);
+                    document.getElementById('addShareForm').reset();
+                    document.getElementById('shareTotalAmount').value = '';
+                    document.getElementById('shareNote').classList.add('hidden');
+                } else {
+                    alert(result.detail || 'Failed to add shares');
+                }
+            } catch (error) {
+                alert('Network error. Please try again.');
+            }
+        });
+        
+        document.getElementById('addPlanForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const data = {
+                title: document.getElementById('planTitle').value,
+                description: document.getElementById('planDescription').value,
+                required_amount: parseFloat(document.getElementById('planAmount').value),
+                is_recurring: document.getElementById('planRecurring').value === 'true'
+            };
+            
+            try {
+                const response = await fetch('/api/business-plans', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${authToken}`
+                    },
+                    body: JSON.stringify(data)
+                });
+                
+                if (response.ok) {
+                    closeModal('addPlanModal');
+                    loadBusinessPlans();
+                    alert('Business plan created successfully!');
+                } else {
+                    const error = await response.json();
+                    alert(error.detail || 'Failed to create plan');
+                }
+            } catch (error) {
+                alert('Network error. Please try again.');
+            }
+        });
+        
+        async function voteOnPlan(planId, voteType) {
+            try {
+                const response = await fetch(`/api/business-plans/${planId}/vote`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${authToken}`
+                    },
+                    body: JSON.stringify({business_plan_id: planId, vote_type: voteType})
+                });
+                
+                if (response.ok) {
+                    loadBusinessPlans();
+                    alert('Vote recorded successfully!');
+                } else {
+                    const error = await response.json();
+                    alert(error.detail || 'Failed to vote');
+                }
+            } catch (error) {
+                alert('Network error. Please try again.');
+            }
+        }
+        
+        async function approveMember(memberId) {
+            try {
+                const response = await fetch(`/api/members/${memberId}/approve`, {
+                    method: 'POST',
+                    headers: {'Authorization': `Bearer ${authToken}`}
+                });
+                
+                if (response.ok) {
+                    loadMembers();
+                    alert('Member approved successfully!');
+                }
+            } catch (error) {
+                alert('Failed to approve member');
+            }
+        }
+        
+        async function viewMemberShares(memberId) {
+            try {
+                const response = await fetch(`/api/members/${memberId}/shares`, {
+                    headers: {'Authorization': `Bearer ${authToken}`}
+                });
+                const data = await response.json();
+                const message = `Member Shares Details:\n\n` +
+                    `Base Shares: ${data.base_shares.toLocaleString()}\n` +
+                    `Additional Shares: ${data.additional_shares.toLocaleString()}\n` +
+                    `Total Shares: ${data.total_shares.toLocaleString()}\n` +
+                    `Base Amount: ₹${data.base_amount.toLocaleString()}\n` +
+                    `Additional Amount: ₹${data.additional_amount.toLocaleString()}\n` +
+                    `Total Amount: ₹${data.total_amount.toLocaleString()}`;
+                alert(message);
+            } catch (error) {
+                alert('Failed to load shares');
+            }
+        }
+        
+        function showModal(modalId) {
+            const modal = document.getElementById(modalId);
+            modal.style.display = 'block';
+            if (modalId === 'addShareModal') {
+                loadMembersForShares();
+            }
+        }
+        
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+        
+        function showAlert(containerId, message, type) {
+            const container = document.getElementById(containerId);
+            const alertDiv = document.createElement('div');
+            alertDiv.className = `alert alert-${type === 'error' ? 'error' : 'success'} mb-3`;
+            alertDiv.textContent = message;
+            container.insertBefore(alertDiv, container.firstChild);
+            setTimeout(() => alertDiv.remove(), 5000);
+        }
+        
+        function getStatusColor(status) {
+            const colors = {
+                'pending_vote': 'warning',
+                'approved': 'success',
+                'rejected': 'danger',
+                'funding_round_1': 'info',
+                'funding_round_2': 'info',
+                'active': 'success',
+                'completed': 'success'
+            };
+            return colors[status] || 'info';
+        }
+        
+        // User functions
+        async function loadMyShares() {
+            try {
+                const response = await fetch('/api/my-shares', {
+                    headers: {'Authorization': `Bearer ${authToken}`}
+                });
+                const data = await response.json();
+                
+                const html = `
+                    <div class="card">
+                        <h3>My Share Summary</h3>
+                        <div class="stats-grid mb-4">
+                            <div class="stat-card">
+                                <h4>Base Shares</h4>
+                                <div class="value">${data.base_shares.toLocaleString()}</div>
+                                <p>₹${data.base_amount.toLocaleString()}</p>
+                            </div>
+                            <div class="stat-card">
+                                <h4>Additional Shares</h4>
+                                <div class="value">${data.additional_shares.toLocaleString()}</div>
+                                <p>₹${data.additional_amount.toLocaleString()}</p>
+                            </div>
+                            <div class="stat-card">
+                                <h4>Total Shares</h4>
+                                <div class="value">${data.total_shares.toLocaleString()}</div>
+                                <p>₹${data.total_amount.toLocaleString()}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card" style="margin-top: var(--space-xl);">
+                        <h3>Share Details</h3>
+                        <div class="table-wrapper">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Share Type</th>
+                                        <th>Quantity</th>
+                                        <th>Amount per Share</th>
+                                        <th>Total Amount</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    ${data.shares.map(s => `
+                                        <tr>
+                                            <td><span class="badge badge-${s.share_type === 'base' ? 'info' : 'warning'}">${s.share_type}</span></td>
+                                            <td>${s.quantity.toLocaleString()}</td>
+                                            <td>₹${s.amount_per_share}</td>
+                                            <td>₹${s.total_amount.toLocaleString()}</td>
+                                        </tr>
+                                    `).join('')}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                `;
+                document.getElementById('mySharesContent').innerHTML = html;
+            } catch (error) {
+                console.error('Error loading my shares:', error);
+                document.getElementById('mySharesContent').innerHTML = '<p style="color: var(--color-danger);">Error loading shares. Please try again.</p>';
+            }
+        }
+        
+        async function loadMyStatement() {
+            try {
+                const response = await fetch('/api/my-statement', {
+                    headers: {'Authorization': `Bearer ${authToken}`}
+                });
+                const statement = await response.json();
+                
+                const html = `
+                    <div class="card">
+                        <h3>My Account Statement</h3>
+                        <div class="stats-grid mb-4">
+                            <div class="stat-card">
+                                <h4>Base Shares</h4>
+                                <div class="value">${statement.shares.base.toLocaleString()}</div>
+                            </div>
+                            <div class="stat-card">
+                                <h4>Additional Shares</h4>
+                                <div class="value">${statement.shares.additional.toLocaleString()}</div>
+                            </div>
+                            <div class="stat-card">
+                                <h4>Total Shares</h4>
+                                <div class="value">${statement.shares.total.toLocaleString()}</div>
+                            </div>
+                        </div>
+                        <h4 style="margin-bottom: var(--space-md);">Recent Transactions</h4>
+                        <div class="table-wrapper">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 15%;">Date</th>
+                                        <th style="width: 10%;">Type</th>
+                                        <th style="width: 15%;">Amount</th>
+                                        <th style="width: 60%;">Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    ${statement.transactions.length > 0 ? statement.transactions.map(t => `
+                                        <tr>
+                                            <td>${new Date(t.date).toLocaleDateString()}</td>
+                                            <td><span class="badge badge-${t.type === 'profit' ? 'success' : 'info'}">${t.type}</span></td>
+                                            <td>₹${t.amount}</td>
+                                            <td>${t.description}</td>
+                                        </tr>
+                                    `).join('') : '<tr><td colspan="4" style="text-align: center; color: var(--color-gray-500);">No transactions yet</td></tr>'}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                `;
+                document.getElementById('myStatementContent').innerHTML = html;
+            } catch (error) {
+                console.error('Error loading statement:', error);
+                document.getElementById('myStatementContent').innerHTML = '<p style="color: var(--color-danger);">Error loading statement. Please try again.</p>';
+            }
+        }
+        
+        // Close modal on outside click
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.style.display = 'none';
+            }
+        }
+        
+        // Placeholder functions for modals
+        function showProfitModal(planId) {
+            alert('Profit recording modal will be implemented');
+        }
+        
+        function showProofModal(planId) {
+            alert('Proof upload modal will be implemented');
+        }
+    </script>
+</body>
+</html>
